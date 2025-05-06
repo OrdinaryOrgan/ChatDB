@@ -173,5 +173,3 @@ cython_debug/
 /datasets/playstation
 /datasets/steam
 /datasets/xbox
-/database/test.sql
-mongotest.py
