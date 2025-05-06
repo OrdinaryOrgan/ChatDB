@@ -1,0 +1,7 @@
+openai
+kagglehub
+pandas
+sqlalchemy
+pymysql
+pymongo
+pydantic
