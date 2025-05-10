@@ -9,7 +9,7 @@ from database.mongodb_user import MongoDBUser
 from database.utils import print_sql_result
 import json
 
-if __name__ == '__main__':
+def main():
     text2sql_manager = Text2SQL()
     text2mql_manager = Text2MQL()
     sql_result2text_manager = SQLResult2Text()
@@ -18,17 +18,15 @@ if __name__ == '__main__':
     mongodb_user = MongoDBUser()
     mongodb_user.login()
 
-    print('Welcome to use ChatDB!')
+    print('Welcome to use ChatDB!\nInput exit to quit')
     while True:
         text_input = input('Please input: ')
         if text_input == 'exit':
-            print('Thank you for using ChatDB!\n')
+            print('Thank you for using ChatDB!')
             break
         classifier_manager.text_input(text_input)
         database_type = classifier_manager.classify()
-        # print(database_type)
         database_type = json.loads(database_type)['database_type']
-        # print(database_type)
         if database_type == 'MySQL':
             text2sql_manager.text_input(text_input)
             sql_statement = text2sql_manager.text_to_sql()
@@ -65,5 +63,7 @@ if __name__ == '__main__':
                 print("MQL Query Result:")
                 print(mql_result)
                 result_explanation = mql_result2text_manager.result_to_text(text_input, mql_result)
-                print('\nMQL Result Explanation: ')
-                print(result_explanation)
+                print(f'\nMQL Result Explanation: \n{result_explanation}')
+
+if __name__ == '__main__':
+    main()

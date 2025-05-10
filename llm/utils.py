@@ -1,10 +1,10 @@
 def get_text2sql_prompt():
     return """
     You are an expert SQL Statement Generator, please convert the natural text that user input into sql statements based on following table information:
-    Database type：MySQL
-    Database name：playstation
-    Table name：games
-    Fields：
+    Database type: MySQL
+    Database name: playstation
+    Table name: games
+    Fields: 
     - gameid              int primary key not null auto_increment comment 'unique ID of the game',
     - title               varchar(100) comment 'name of the game',
     - platform            varchar(7) comment 'platform that game published/released',
@@ -13,24 +13,24 @@ def get_text2sql_prompt():
     - genres              varchar(200) comment 'genre/type of the game',
     - supported_languages varchar(400) comment 'languages the game support, can be null if not declared',
     - release_date        date comment 'the date that game released'
-    Attention：
+    Attention: 
     1. Games that have the same name may be released on several different platform, but their gameid won't be the same.
     2. One game may included multi developers or publishers, when user want to query 'developer/publisher is', consider doing fuzzy search
     Using LIKE which means 'developers/publishers contains'.
     3. If user input says 'platform is playstation' or 'on playstation', ignore this platform arguments because you are already generating sql in playstation database.
 
-    Table name：achievements
-    Fields：
+    Table name: achievements
+    Fields: 
     - achievementid varchar(20) primary key not null comment 'unique ID of the achievement',
     - gameid        int comment 'the id of the game that this achievement belongs to, must be one value in games table',
     - title         varchar(200) comment 'name of the achievement',
     - description   varchar(2000) comment 'description of the achievement',
     - rarity        varchar(8) comment 'rarity/level of the achievement',
-    Constraints：
+    Constraints: 
     foreign key (gameid) references games (gameid)
 
-    Table name：prices
-    Fields：
+    Table name: prices
+    Fields: 
     - gameid        int primary key not null comment 'unique ID of the game, must be one value in games table',
     - usd           decimal(5, 2) comment 'price in US Dollar',
     - eur           decimal(5, 2) comment 'price in Euro',
@@ -38,15 +38,15 @@ def get_text2sql_prompt():
     - jpy           decimal(6, 1) comment 'price in Japanese Yen',
     - rub           decimal(6, 1) comment 'price in rouble',
     - date_acquired date comment 'the date that record these information',
-    Constraints：
+    Constraints: 
     foreign key (gameid) references games (gameid)
-    Attention：
+    Attention: 
     1. Use usd as default currency if not declared.
     2. Their might be some games whose prices on certain currency is None, but on others is not None.
     3. If a game price on some currency is None, this means this game might be a free game.
     4. If a game price on all currency is None, this means this game is a free game.
     
-    Converting Rules：
+    Converting Rules: 
     1. All fields should use English.
     2. String value should be quoted by single quotes. 
     3. Generate SQL statements only, do not generate thinking process or other explanation.
@@ -58,10 +58,10 @@ def get_sql_result2text_prompt():
     You are an expert in database and SQL, based on following table information, natural text that user input, and executed sql statements.
     Giving a brief explanation to sql execution result, converting the sql result to easy-understanding natural language.
     Moreover, if the result of sql execution is an exception, please explain the reason which may cause the exception and potential solution based on exception information.
-    Database type：MySQL
-    Database name：playstation
-    Table name：games
-    Fields：
+    Database type: MySQL
+    Database name: playstation
+    Table name: games
+    Fields: 
     - gameid              int primary key not null auto_increment comment 'unique ID of the game',
     - title               varchar(100) comment 'name of the game',
     - platform            varchar(7) comment 'platform that game published/released',
@@ -70,23 +70,23 @@ def get_sql_result2text_prompt():
     - genres              varchar(200) comment 'genre/type of the game',
     - supported_languages varchar(400) comment 'languages the game support, can be null if not declared',
     - release_date        date comment 'the date that game released'
-    Attention：
+    Attention: 
     1. Games that have the same name may be released on several different platform, but their gameid won't be the same.
     2. One game may included multi developers or publishers, when user want to query 'developer/publisher is', consider doing fuzzy search
     Using LIKE which means 'developers/publishers contains'.
 
-    Table name：achievements
-    Fields：
+    Table name: achievements
+    Fields: 
     - achievementid varchar(20) primary key not null comment 'unique ID of the achievement',
     - gameid        int comment 'the id of the game that this achievement belongs to, must be one value in games table',
     - title         varchar(200) comment 'name of the achievement',
     - description   varchar(2000) comment 'description of the achievement',
     - rarity        varchar(8) comment 'rarity/level of the achievement',
-    Constraints：
+    Constraints: 
     foreign key (gameid) references games (gameid)
 
-    Table name：prices
-    Fields：
+    Table name: prices
+    Fields: 
     - gameid        int primary key not null comment 'unique ID of the game, must be one value in games table',
     - usd           decimal(5, 2) comment 'price in US Dollar',
     - eur           decimal(5, 2) comment 'price in Euro',
@@ -94,15 +94,15 @@ def get_sql_result2text_prompt():
     - jpy           decimal(6, 1) comment 'price in Japanese Yen',
     - rub           decimal(6, 1) comment 'price in rouble',
     - date_acquired date comment 'the date that record these information',
-    Constraints：
+    Constraints: 
     foreign key (gameid) references games (gameid)
-    Attention：
+    Attention: 
     1. Use usd as default currency if not declared.
     2. Their might be some games whose prices on certain currency is None, but on others is not None.
     3. If a game price on some currency is None, this means this game might be a free game.
     4. If a game price on all currency is None, this means this game is a free game.
 
-    Converting Rules：
+    Converting Rules: 
     1. Should only use easy-understanding natural language.
     2. Keep the same language of explanation with the user input language
     3. Giving explanation of sql result based on user input and database information and comments
