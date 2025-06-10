@@ -1,0 +1,10 @@
+MySQL:
+Group by:
+show me the top 5 developers who develop most games on playstation
+
+Join:
+show me the title, price and the number of achievement of the game on playstation who has the highest price.
+
+MongoDB:
+Aggregate:
+show me any 5 reviews of the game whose name is Counter-Strike on steam.
